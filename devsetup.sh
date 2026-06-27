@@ -44,7 +44,7 @@ print_banner() {
   clear
   echo -e "${CYAN}${BOLD}"
   echo "  ╔══════════════════════════════════════════════╗"
-  echo "  ║    🛠  WSL Dev Environment Setup             ║"
+  echo "  ║    🛠  WSL Dev Environment Setup  🛠           ║"
   echo "  ║       Ubuntu/Debian (apt) · WSL 2            ║"
   echo "  ╚══════════════════════════════════════════════╝"
   echo -e "${NC}"
@@ -136,10 +136,12 @@ install_docker() {
     | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
   sudo chmod a+r /etc/apt/keyrings/docker.gpg
 
+  # shellcheck source=/dev/null
+  . /etc/os-release
   echo \
     "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] \
     https://download.docker.com/linux/ubuntu \
-    $(. /etc/os-release && echo "$VERSION_CODENAME") stable" \
+    ${VERSION_CODENAME} stable" \
     | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 
   sudo apt-get update -qq &>/dev/null
@@ -199,6 +201,7 @@ install_go() {
   rm /tmp/go.tar.gz
 
   # Add to PATH in both .bashrc and .profile
+  # shellcheck disable=SC2016  # single quotes intentional: vars expand at shell startup, not now
   for rc in ~/.bashrc ~/.profile; do
     grep -q '/usr/local/go/bin' "$rc" 2>/dev/null || \
       echo 'export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin' >> "$rc"
@@ -220,9 +223,11 @@ install_rust() {
   curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --no-modify-path
 
   # Source cargo env
+  # shellcheck source=/dev/null
   source "$HOME/.cargo/env" 2>/dev/null || true
 
   # Add to .bashrc if not present
+  # shellcheck disable=SC2016  # single quotes intentional: $HOME expands at shell startup
   grep -q '.cargo/env' ~/.bashrc 2>/dev/null || \
     echo 'source "$HOME/.cargo/env"' >> ~/.bashrc
 
@@ -337,8 +342,10 @@ main() {
   run_menu
 
   # Count selected
+  # NOTE: ((count++)) triggers set -e when count=0 (expression value 0 = exit code 1)
+  # Use count=$((count+1)) instead — always safe with set -e
   local count=0
-  for i in "${!TOOLS[@]}"; do [[ ${SELECTED[$i]} -eq 1 ]] && ((count++)); done
+  for i in "${!TOOLS[@]}"; do [[ ${SELECTED[$i]} -eq 1 ]] && count=$((count + 1)); done
 
   if [[ $count -eq 0 ]]; then
     echo -e "\n  ${YELLOW}No tools selected. Exiting.${NC}\n"
