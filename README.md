@@ -61,7 +61,7 @@ curl -fsSL https://raw.githubusercontent.com/AnkushUjawane/DevKit/main/install.s
 Then reload your shell and launch:
 
 ```bash
-source ~/.bashrc
+source ~/.bashrc OR source ~/.zshrc
 devkit
 ```
 
