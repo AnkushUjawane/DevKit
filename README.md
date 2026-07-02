@@ -1,38 +1,37 @@
 <div align="center">
 
-# ⚙️ DevKit
+# DevKit
 
-**One command to set up your entire developer environment.**  
-An interactive, menu-driven CLI installer for WSL 2 — with smart detection, official package sources, and a clean terminal UI.
+**One command to set up your entire developer environment.**
+Interactive CLI installer with smart detection, official package sources, and AI-powered error fixing.
 
 <br/>
 
-[![Platform](https://img.shields.io/badge/platform-WSL%202-0078D4?logo=windows&logoColor=white)](https://learn.microsoft.com/en-us/windows/wsl/)
-[![Distro](https://img.shields.io/badge/distro-Ubuntu%20%7C%20Debian-E95420?logo=ubuntu&logoColor=white)](https://ubuntu.com/)
-[![Shell](https://img.shields.io/badge/shell-bash-4EAA25?logo=gnubash&logoColor=white)](https://www.gnu.org/software/bash/)
+[![npm](https://img.shields.io/npm/v/@ankushujawane/devkit?color=cb3837&logo=npm&logoColor=white)](https://www.npmjs.com/package/@ankushujawane/devkit)
+[![npm downloads](https://img.shields.io/npm/dm/@ankushujawane/devkit?color=cb3837)](https://www.npmjs.com/package/@ankushujawane/devkit)
+[![Platform](https://img.shields.io/badge/platform-WSL2%20%7C%20Linux%20%7C%20macOS-blue?logo=linux&logoColor=white)]()
 [![License](https://img.shields.io/badge/license-MIT-22c55e)](./LICENSE)
 [![ShellCheck](https://img.shields.io/badge/shellcheck-passing-22c55e)](https://www.shellcheck.net/)
-[![Tools](https://img.shields.io/badge/tools-8_supported-8b5cf6)]()
-[![Version](https://img.shields.io/badge/version-v1.0.0-0ea5e9)]()
+[![Node](https://img.shields.io/badge/node-%3E%3D18.0.0-brightgreen?logo=node.js&logoColor=white)](https://nodejs.org)
+[![Version](https://img.shields.io/badge/version-v2.0.0-8b5cf6)]()
 
 <br/>
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/AnkushUjawane/DevKit/main/install.sh | bash
+npx devkit-setup
 ```
 
 </div>
 
 ---
 
-## 📖 Table of Contents
+## Table of Contents
 
 - [Why DevKit](#-why-devkit)
 - [Quick Start](#-quick-start)
 - [Supported Tools](#-supported-tools)
 - [How It Works](#-how-it-works)
 - [After Installation](#-after-installation)
-- [Docker on WSL 2](#-docker-on-wsl-2)
 - [Project Structure](#-project-structure)
 - [Roadmap](#-roadmap)
 - [Contributing](#-contributing)
@@ -40,152 +39,143 @@ curl -fsSL https://raw.githubusercontent.com/AnkushUjawane/DevKit/main/install.s
 
 ---
 
-## 💡 Why DevKit
+## Why DevKit
 
-Every developer setting up a new machine faces the same problem: spending hours installing tools one by one, each from a different website, each with its own instructions. A wrong command, a deprecated repo, a missing dependency — and you're debugging before you've written a single line of code.
+Every developer setting up a new machine faces the same problem — hours spent installing tools one by one, each from a different website, each with different instructions. A wrong command, a deprecated repo, a missing dependency, and you're debugging your environment before you've written a single line of code.
 
-DevKit solves that with a single command. Run it, pick your tools from an interactive menu, and walk away. Every installer uses the official source for that tool — no outdated PPAs, no third-party mirrors.
+DevKit solves that. One command, pick your tools from an interactive menu, and walk away. Every installer uses the **official source** for that tool. No outdated PPAs, no third-party mirrors, no guesswork.
+
+**Coming in v3.0:** A built-in AI assistant that watches your install output, catches errors as they happen, explains what went wrong, and suggests the exact fix — live in the terminal.
 
 ---
 
-## 🚀 Quick Start
+## Quick Start
 
-### ⚡ Option 1 — One-line install (recommended)
+### Run instantly (no install required)
 
-Installs the `devkit` command permanently on your system.
+```bash
+npx devkit-setup
+```
+
+Node.js 18+ is the only requirement. Works on WSL 2, native Linux, and macOS.
+
+### Install globally (run anytime as `devkit`)
+
+```bash
+npm install -g devkit-setup
+devkit
+```
+
+### Legacy one-liner (bash only, WSL/Linux)
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/AnkushUjawane/DevKit/main/install.sh | bash
 ```
 
-Then reload your shell and launch:
-
-```bash
-source ~/.bashrc OR source ~/.zshrc
-devkit
-```
-
-After that, you can run `devkit` from anywhere, anytime.
-
-### 🔧 Option 2 — Manual (clone & run directly)
-
-```bash
-git clone https://github.com/AnkushUjawane/DevKit.git
-cd DevKit
-chmod +x devsetup.sh
-./devsetup.sh
-```
-
-> **Requirements:** WSL 2 with Ubuntu 20.04, 22.04, or 24.04 (or any Debian-based distro). `curl` and `bash` are pre-installed on all of these.
-
 ---
 
-## 📦 Supported Tools
+## Supported Tools
 
 | # | Tool | Installs | Source |
 |---|------|----------|--------|
-| 1 | 🐳 **Docker** | Docker Engine, CLI, Containerd, Compose plugin | [docker.com](https://docs.docker.com/engine/install/ubuntu/) apt repo |
-| 2 | 🐍 **Python 3** | python3, pip3, venv | Ubuntu apt |
-| 3 | 🟩 **Node.js** | Node.js LTS + npm | [NodeSource](https://github.com/nodesource/distributions) apt repo |
-| 4 | 🔵 **Git** | Latest stable git | Ubuntu apt |
-| 5 | 🐹 **Go** | Latest stable binary | [go.dev](https://go.dev/dl/) official |
-| 6 | 🦀 **Rust** | rustc + cargo | [rustup.rs](https://rustup.rs/) |
-| 7 | 💻 **VS Code CLI** | `code` command, tunnel support | [Microsoft](https://code.visualstudio.com/docs/editor/command-line) official |
-| 8 | ☸️ **kubectl + Helm** | kubectl v1.30, Helm v3 | [k8s.io](https://kubernetes.io/docs/tasks/tools/) + [Helm](https://helm.sh/docs/intro/install/) apt repos |
+| 1 | **Docker** | Docker Engine, CLI, Containerd, Compose plugin | [docker.com](https://docs.docker.com/engine/install/ubuntu/) apt repo |
+| 2 | **Python 3** | python3, pip3, venv | Ubuntu apt |
+| 3 | **Node.js** | Node.js LTS + npm | [NodeSource](https://github.com/nodesource/distributions) apt repo |
+| 4 | **Git** | Latest stable | Ubuntu apt |
+| 5 | **Go** | Latest stable binary | [go.dev](https://go.dev/dl/) official |
+| 6 | **Rust** | rustc + cargo | [rustup.rs](https://rustup.rs/) |
+| 7 | **VS Code CLI** | `code` command + tunnel support | [Microsoft](https://code.visualstudio.com/docs/editor/command-line) official |
+| 8 | **kubectl + Helm** | kubectl v1.30, Helm v3 | [k8s.io](https://kubernetes.io/docs/tasks/tools/) + [Helm](https://helm.sh/) apt repos |
 
-> Each tool is installed from its **official source** only — no third-party mirrors, no outdated PPAs.
+Every tool is installed from its **official source only** — no third-party mirrors.
 
 ---
 
-## 🎬 How It Works
+## How It Works
 
 ### The menu
 
-When you run `devkit`, an interactive menu appears in your terminal. Type a number to toggle a tool on or off. Tools already installed on your system are detected automatically and shown at the bottom — they will be skipped if selected.
+When you run `devkit`, an interactive menu appears. Navigate with arrow keys, toggle tools with numbers or Space, then press `I` to install.
+
+Tools already on your system are detected automatically and shown as `(installed)` — they will be skipped.
 
 ```
-╔══════════════════════════════════════════════╗
-║    ⚙️  DevKit — Dev Environment Setup        ║
-║       Ubuntu/Debian (apt) · WSL 2            ║
-╚══════════════════════════════════════════════╝
+    ____             _    _ _
+   |  _ \  _____   _| | _(_) |_
+   | | | |/ _ \ \ / / |/ / | __|
+   | |_| |  __/\ V /|   <| | |_
+   |____/ \___| \_/ |_|\_\_|\__|
+   Development Environment Setup
 
-  Select tools to install:
-  Enter number to toggle · A = All · N = None · I = Install · Q = Quit
+  ↑↓ navigate · Space/number toggle · A=All · N=None · I=Install · Q=Quit
 
-  [✔] 1. Docker Engine + Compose
-  [ ] 2. Python 3 + pip
-  [✔] 3. Node.js LTS + npm
-  [ ] 4. Git
-  [✔] 5. Go (latest)
-  [✔] 6. Rust (via rustup)
-  [ ] 7. VS Code CLI
-  [✔] 8. kubectl + Helm
+  > [*] 1. Docker Engine + Compose
+    [ ] 2. Python 3 + pip (installed)
+    [*] 3. Node.js LTS + npm
+    [ ] 4. Git (installed)
+    [*] 5. Go (latest)
+    [*] 6. Rust (via rustup)
+    [ ] 7. VS Code CLI (installed)
+    [*] 8. kubectl + Helm
 
-  Already installed on your system: Git Python3
+  Already on your system:
+  Python 3 + pip · Git · VS Code CLI
 
-  → I
+  5 tools selected — press I to install
 ```
 
-### Installation output
+### Live install output
 
 ```
-  ▸ Docker Engine + Compose
-  ──────────────────────────────────────────────────
-  ℹ  Adding Docker's official GPG key and repo...
-  ✔  Docker installed → Docker version 27.x.x
-  ✔  Docker Compose installed → Docker Compose version v2.x.x
-  ⚠  WSL tip: Run 'newgrp docker' or restart WSL to use Docker without sudo.
+  Installing 5 tools on wsl (apt)
 
-  ▸ Go (latest)
-  ──────────────────────────────────────────────────
-  ℹ  Fetching latest Go version...
-  ℹ  Downloading go1.23.x...
-  ✔  Go installed → go version go1.23.x linux/amd64
-  ℹ  PATH updated in ~/.bashrc and ~/.profile
+  ⠋ Docker Engine + Compose
+     Adding Docker official GPG key...
+     Setting up repository...
+
+  ✔ Go (latest)
+  ✔ Rust (via rustup)
+  o  kubectl + Helm       (waiting)
 ```
 
 ### Summary
 
 ```
-  ╔══════════════════════════════════════════════╗
-  ║             Installation Summary             ║
-  ╚══════════════════════════════════════════════╝
-
-  ✔  Docker    → Docker version 27.x.x
-  ✔  Node.js   → v22.x.x
-  ✔  Go        → go1.23.x
-  ✔  Rust      → rustc 1.8x.x
-  ✔  kubectl   → installed
-  ✔  Helm      → v3.x.x
-
-  → Run: source ~/.bashrc  (or restart terminal)
-  → For Docker without sudo: newgrp docker
-
-  ✔  Setup complete! Happy coding 🚀
+  ╭─────────────────────────────╮
+  │  Installation Complete      │
+  │                             │
+  │  ✔ 5 installed              │
+  │  ⊘ 3 skipped               │
+  │                             │
+  │  Run source ~/.bashrc       │
+  │  to pick up Go/Rust PATH    │
+  ╰─────────────────────────────╯
 ```
 
-### How `install.sh` works
+### OS detection
 
-When you run the one-line curl command:
+DevKit automatically detects your environment and uses the right package manager:
 
-1. `curl` fetches `install.sh` from GitHub and pipes it to `bash`
-2. `install.sh` downloads `devsetup.sh` to `~/.local/bin/devkit`
-3. Sets `chmod +x` so it's executable
-4. Adds `~/.local/bin` to your `$PATH` in `~/.bashrc` if not already there
-5. From then on, `devkit` is available from anywhere in your terminal
+| Environment | Package Manager | Status |
+|---|---|---|
+| WSL 2 / Ubuntu / Debian | `apt` | ✔ fully supported |
+| macOS | `brew` | ✔ supported |
+| Windows | `winget` | ✔ supported |
+| Arch / Manjaro | `pacman` | coming soon |
+| Fedora / RHEL | `dnf` | coming soon |
 
 ---
 
-## 🔧 After Installation
+## After Installation
 
 ```bash
-# Reload shell config — required for Go and Rust to be in PATH
+# Reload shell — required for Go and Rust PATH
 source ~/.bashrc
 
-# Use Docker without sudo
+# Use Docker without sudo (WSL — restart terminal after)
 newgrp docker
 
-# Verify all tools are installed correctly
+# Verify all tools
 docker --version
 python3 --version && pip3 --version
 node --version && npm --version
@@ -197,89 +187,94 @@ kubectl version --client
 helm version --short
 ```
 
----
+### Docker on WSL 2
 
-## 🐳 Docker on WSL 2
-
-Docker Engine runs natively inside WSL 2, but the daemon needs to be started manually since WSL doesn't use systemd by default.
+The Docker daemon needs to be started manually on WSL 2:
 
 ```bash
-# Start the Docker daemon
+# Start daemon
 sudo service docker start
 
-# Optional: auto-start every time you open a terminal
+# Auto-start on every terminal open
 echo 'sudo service docker start > /dev/null 2>&1' >> ~/.bashrc
 ```
 
-> **Alternative:** Install [Docker Desktop for Windows](https://www.docker.com/products/docker-desktop/) and enable the WSL 2 backend — it manages the daemon automatically and integrates cleanly with WSL.
+> Or install [Docker Desktop for Windows](https://www.docker.com/products/docker-desktop/) with the WSL 2 backend — it manages the daemon automatically.
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 DevKit/
-├── devsetup.sh               ← Interactive menu installer (main script)
-├── install.sh                ← curl | bash entry point — installs devkit permanently
-├── README.md
-├── LICENSE
-├── .gitignore
+├── src/
+│   ├── cli.tsx                  <- Entry point (npx @ankushujawane/devkit)
+│   ├── tools.ts                 <- Central tool registry
+│   ├── ui/
+│   │   ├── Menu.tsx             <- Interactive Ink menu
+│   │   └── Installer.tsx        <- Live progress + spinner UI
+│   ├── installers/
+│   │   └── index.ts             <- apt/brew/winget recipes via execa
+│   └── utils/
+│       └── os.ts                <- OS/env/pkg manager detection
+├── devsetup.sh                  <- Legacy bash installer (v1)
+├── install.sh                   <- curl | bash entry point (v1)
+├── package.json
+├── tsconfig.json
 └── .github/
-    ├── workflows/
-    │   └── shellcheck.yml    ← Lints all scripts on every push/PR
-    └── ISSUE_TEMPLATE/
-        └── bug_report.md
+    └── workflows/
+        ├── shellcheck.yml       <- Lint bash scripts on every push
+        └── publish.yml          <- Auto-publish to npm on version tag
 ```
 
 ---
 
-## 🗺️ Roadmap
+## Roadmap
 
-### ✅ v1.0.0 — Bash CLI (current)
+### v1.0.0 — Bash CLI
 - [x] Interactive menu-based installer for WSL 2
 - [x] 8 tools from official sources
-- [x] Smart detection — skips already-installed tools
-- [x] `curl | bash` one-line install via `install.sh`
-- [x] ShellCheck validated, zero warnings
-- [x] GitHub Actions CI on every push
+- [x] Smart skip detection
+- [x] `curl | bash` one-line install
+- [x] ShellCheck CI
 
-### 🔄 v2.0.0 — npm CLI (next)
-- [ ] Rebuild as a Node.js + TypeScript package
-- [ ] Terminal UI powered by [Ink](https://github.com/vadimdemedes/ink) (React for CLI)
-- [ ] Cross-platform: Linux, macOS, WSL, Windows
-- [ ] `npx devkit` — works with zero pre-install
-- [ ] Publish to npm
+### v2.0.0 — npm CLI (current)
+- [x] Rebuilt in Node.js + TypeScript
+- [x] Terminal UI with Ink (React for CLI)
+- [x] Cross-platform: WSL 2, Linux, macOS, Windows
+- [x] Live install output streaming via execa
+- [x] `npx @ankushujawane/devkit` — zero pre-install
+- [x] Auto-publish to npm via GitHub Actions
 
-### 🤖 v3.0.0 — AI Assistant
-- [ ] Built-in Claude AI that watches your install output
-- [ ] When an error occurs → AI explains it and suggests a fix, live in the terminal
-- [ ] `[Run this fix?]` prompt — apply the AI's suggestion in one keypress
+### v3.0.0 — AI Assistant (next)
+- [ ] Built-in AI that watches install output in real time
+- [ ] Error detected → AI explains it and suggests a fix instantly
+- [ ] `[Run this fix?]` — apply the AI suggestion with one keypress
 - [ ] Chat mode: ask questions about any tool directly in the terminal
 
-### 🌐 v4.0.0 — Profiles & Community
-- [ ] Save your tool selection as a named profile (`devkit save my-stack`)
-- [ ] Share profiles as a `devkit.yaml` file
-- [ ] Plugin system — community-contributed tools
+### v4.0.0 — Profiles & Community
+- [ ] Save tool selections as named profiles (`devkit save my-stack`)
+- [ ] Share stacks as `devkit.yaml`
+- [ ] Plugin system for community-contributed tools
 - [ ] Update manager — detect and update installed tools
 
 ---
 
-## 🤝 Contributing
+## Contributing
 
-Contributions are welcome. To add a new tool:
+To add a new tool:
 
-1. Fork the repo and create a branch: `git checkout -b feat/add-toolname`
-2. Add the tool name to the `TOOLS[]` array in `devsetup.sh`
-3. Write an `install_<toolname>()` function following the existing pattern
-4. Wire it into `main()` with `[[ ${SELECTED[N]} -eq 1 ]] && install_<toolname>`
-5. Run `shellcheck devsetup.sh` — must pass with zero warnings
-6. Open a Pull Request with a short description
+1. Fork and create a branch: `git checkout -b feat/add-toolname`
+2. Add the tool to `TOOLS[]` in `src/tools.ts`
+3. Add install recipes for `apt`, `brew`, and `winget` in `src/installers/index.ts`
+4. Test locally: `npm run dev`
+5. Open a Pull Request
 
-For bugs, use the [bug report template](.github/ISSUE_TEMPLATE/bug_report.md).
+For bugs, open an issue with your OS, environment, and the full error output.
 
 ---
 
-## 📄 License
+## License
 
 MIT — see [LICENSE](./LICENSE)
 
