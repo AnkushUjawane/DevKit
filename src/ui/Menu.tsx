@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import figlet from 'figlet';
 import { Box, Text, useInput, useApp } from 'ink';
-import { commandExists }               from '../utils/os.js';
-import { TOOLS }                       from '../tools.js';
-import type { ToolId }                 from '../tools.js';
+import { commandExists } from '../utils/os.js';
+import { TOOLS } from '../tools.js';
+import type { ToolId } from '../tools.js';
 
 interface Props { onStart: (selected: ToolId[]) => void; }
+const banner = figlet.textSync("Devkit");
 
 export function Menu({ onStart }: Props) {
   const { exit }                      = useApp();
@@ -38,7 +40,8 @@ export function Menu({ onStart }: Props) {
     <Box flexDirection="column" paddingX={2} paddingY={1}>
 
       <Box flexDirection="column" marginBottom={1}>
-        <Text color="cyan" bold> DevKit — Dev Environment Setup </Text>
+        <Text color="cyan" bold>{banner}</Text>
+        <Text color="cyan" bold> Development Environment Setup </Text>
       </Box>
 
       <Box marginBottom={1}>
