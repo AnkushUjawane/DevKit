@@ -1,6 +1,6 @@
 {
   "name": "devkit-setup",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "One command to set up your entire dev environment — Docker, Python, Node, Go, Rust, kubectl & more.",
   "author": "Ankush Ujawane",
   "license": "MIT",
