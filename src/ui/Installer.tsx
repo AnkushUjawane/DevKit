@@ -10,7 +10,7 @@ import { commandExists }                  from '../utils/os.js';
 interface Props { selected: ToolId[]; osInfo: OsInfo; }
 
 type Status = 'waiting' | 'running' | 'done' | 'skipped' | 'error';
-interface ToolState { id: ToolId; label: string; emoji: string; status: Status; lines: string[]; error?: string; }
+interface ToolState { id: ToolId; label: string;  status: Status; lines: string[]; error?: string; }
 
 export function Installer({ selected, osInfo }: Props) {
   const { exit } = useApp();
@@ -18,7 +18,7 @@ export function Installer({ selected, osInfo }: Props) {
   const [tools, setTools] = useState<ToolState[]>(() =>
     selected.map(id => {
       const t = TOOLS.find(t => t.id === id)!;
-      return { id, label: t.label, emoji: t.emoji, status: 'waiting' as Status, lines: [] };
+      return { id, label: t.label, status: 'waiting' as Status, lines: [] };
     })
   );
   const [done, setDone] = useState(false);
@@ -82,7 +82,7 @@ export function Installer({ selected, osInfo }: Props) {
             {icon(tool.status)}
             <Text color={tool.status === 'done' ? 'green' : tool.status === 'error' ? 'red' : undefined}
                   bold={tool.status === 'running'}>
-              {tool.emoji} {tool.label}
+              {tool.label}
             </Text>
             {tool.status === 'skipped' && <Text dimColor>(already installed)</Text>}
           </Box>

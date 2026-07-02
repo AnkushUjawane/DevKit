@@ -60,7 +60,7 @@ export function Menu({ onStart }: Props) {
               dimColor={!isSelected && !isCursor}
             >
               {isCursor ? '▶ ' : '  '}
-              {isSelected ? '[✔]' : '[ ]'} {i + 1}. {tool.emoji} {tool.label}
+              {isSelected ? '[✔]' : '[ ]'} {i + 1}. {tool.label}
               {isInstalled ? ' (installed)' : ''}
             </Text>
           </Box>
