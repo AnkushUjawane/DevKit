@@ -38,10 +38,7 @@ export function Menu({ onStart }: Props) {
     <Box flexDirection="column" paddingX={2} paddingY={1}>
 
       <Box flexDirection="column" marginBottom={1}>
-        <Text color="cyan" bold>╔══════════════════════════════════════════════╗</Text>
-        <Text color="cyan" bold>║   ⚙️  DevKit — Dev Environment Setup  ⚙️    ║</Text>
-        <Text color="cyan" bold>║      Cross-platform · AI-powered · v2.0      ║</Text>
-        <Text color="cyan" bold>╚══════════════════════════════════════════════╝</Text>
+        <Text color="cyan" bold> DevKit — Dev Environment Setup </Text>
       </Box>
 
       <Box marginBottom={1}>
